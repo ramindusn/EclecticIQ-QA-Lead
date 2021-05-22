@@ -27,6 +27,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isCyberAttackStatisticPageLoaded());
         } catch (AssertionError e) {
             LOGGER.error("Cyber Attack Statistic page is NOT loaded");
+            Assert.fail("Cyber Attack Statistic page is NOT loaded");
         }
     }
 
@@ -36,6 +37,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isDefaultValueCorrectInSortDDL(defaultOption));
         } catch (AssertionError e) {
             LOGGER.error("'" + defaultOption + "' is NOT loaded as default sort option in Sort drop down");
+            Assert.fail("'" + defaultOption + "' is NOT loaded as default sort option in Sort drop down");
         }
     }
 
@@ -45,6 +47,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isSortOptionsAvailableInSortDDL(expectedSortingOptions));
         } catch (AssertionError e) {
             LOGGER.error("Expected sorting options are NOT loaded in sorting drop down");
+            Assert.fail("Expected sorting options are NOT loaded in sorting drop down");
         }
     }
 
@@ -54,6 +57,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isSelectSortOptionFromSortDDL(chooseOption));
         } catch (AssertionError e) {
             LOGGER.error("Could NOT select '" + chooseOption + "' from sorting drop down");
+            Assert.fail("Could NOT select '" + chooseOption + "' from sorting drop down");
         }
     }
 
@@ -63,6 +67,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isSetFilter(searchText));
         } catch (AssertionError e) {
             LOGGER.error("Could type '" + searchText + "' in filter data field");
+            Assert.fail("Could type '" + searchText + "' in filter data field");
         }
     }
 
@@ -82,6 +87,7 @@ public class CyberAttackStatisticSteps {
             Assert.assertTrue(cyberAttackStatisticPage.isFilteredDataCorrect(columnName));
         } catch (AssertionError e) {
             LOGGER.error("Filtered data is NOT correct in '" + columnName + "' column");
+            Assert.fail("Filtered data is NOT correct in '" + columnName + "' column");
         }
     }
 }
