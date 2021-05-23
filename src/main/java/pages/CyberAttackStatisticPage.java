@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import utilities.DefaultProperties;
 import utilities.Level;
+import utilities.NumberSuffix;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,18 @@ public class CyberAttackStatisticPage extends BasePage {
     //Page element
     @FindBy(tagName = "h1")
     private WebElement pageHeader;
+
+    @FindBy(id = "header-name")
+    private WebElement nameColumnHeader;
+
+    @FindBy(id = "header-cases")
+    private WebElement numberOfCasesColumnHeader;
+
+    @FindBy(id = "header-averageImpact")
+    private WebElement impactScoreColumnHeader;
+
+    @FindBy(id = "header-complexity")
+    private WebElement complexityColumnHeader;
 
     @FindBy(id = "filter-input")
     private WebElement filterField;
@@ -50,6 +63,43 @@ public class CyberAttackStatisticPage extends BasePage {
             LOGGER.error("isCyberAttackStatisticPageLoaded - " + e);
         }
         return isLoaded;
+    }
+
+    /**
+     * Validate given column header name is correct
+     *
+     * @param expectedColumnHeaderName
+     * @return boolean
+     */
+    public boolean isColumnHeaderNameCorrect(String expectedColumnHeaderName) {
+        boolean isNameCorrect = false;
+        try {
+            String actualColumnName = null;
+            switch (expectedColumnHeaderName) {
+                case "NAME":
+                    actualColumnName = nameColumnHeader.getText();
+                    break;
+                case "NUMBER OF CASES":
+                    actualColumnName = numberOfCasesColumnHeader.getText();
+                    break;
+                case "AVERAGE IMPACT SCORE":
+                    actualColumnName = impactScoreColumnHeader.getText();
+                    break;
+                case "COMPLEXITY":
+                    actualColumnName = complexityColumnHeader.getText();
+                    break;
+                default:
+                    LOGGER.error("'" + expectedColumnHeaderName + "' - expected column Name NOT found");
+            }
+            if (actualColumnName != null) {
+                if (actualColumnName.equals(expectedColumnHeaderName)) {
+                    isNameCorrect = true;
+                }
+            }
+        } catch (RuntimeException e) {
+            LOGGER.error("isCyberAttackStatisticPageLoaded - " + e);
+        }
+        return isNameCorrect;
     }
 
     /**
@@ -89,7 +139,7 @@ public class CyberAttackStatisticPage extends BasePage {
     }
 
     /**
-     * Validate sort options avaible in sort drop down list
+     * Validate sort options available in sort drop down list
      *
      * @param expectedList
      * @return boolean
@@ -104,7 +154,7 @@ public class CyberAttackStatisticPage extends BasePage {
             }
             LOGGER.debug("Actual sorting options - " + actualOptionsList);
             LOGGER.debug("Expected sorting options - " + expectedList);
-            isCheck = listEqualsIgnoreOrder(actualOptionsList, expectedList);
+            isCheck = isListEqualsIgnoreOrder(actualOptionsList, expectedList);
         } catch (RuntimeException e) {
             LOGGER.error("isSortOptionsAvailableInSortDDL - " + e);
         }
@@ -139,23 +189,8 @@ public class CyberAttackStatisticPage extends BasePage {
         boolean isDataCorrect = false;
         try {
             String enteredText = filterField.getAttribute("value");
-            boolean isEleClassName = true;
-            String eleClassName = null;
-            switch (columnName) {
-                case "Name":
-                    eleClassName = "name";
-                    break;
-                case "Complexity":
-                    eleClassName = "complexity";
-                    break;
-                default:
-                    isEleClassName = false;
-                    LOGGER.error(columnName + " - this column name NOT found");
-            }
-            if (isEleClassName) {
-                List<WebElement> cellElements = driver.findElements(By.xpath("//div[@class='table-data data-" + eleClassName + "']"));
-                isDataCorrect = isContains(cellElements, enteredText);
-            }
+            List<WebElement> cellElements = driver.findElements(By.xpath("//div[@class='table-data data-" + columnName.toLowerCase() + "']"));
+            isDataCorrect = isContains(cellElements, enteredText);
         } catch (RuntimeException e) {
             LOGGER.error("isFilteredDataCorrect - " + e);
         }
@@ -222,11 +257,11 @@ public class CyberAttackStatisticPage extends BasePage {
                 StringBuilder stringBuilder = new StringBuilder(ele.getText());
                 double number = 0.0;
                 if (ele.getText().contains("k")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * 100000;
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.K.getValue();
                 } else if (ele.getText().contains("M")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * 1000000;
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.M.getValue();
                 } else if (ele.getText().contains("B")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * 1000000000;
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.B.getValue();
                 } else {
                     number = Double.parseDouble(ele.getText());
                 }

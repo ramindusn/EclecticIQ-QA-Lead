@@ -36,20 +36,20 @@ public class BasePage {
      * @return boolean
      */
     public boolean isSorted(List<WebElement> elementList) {
-        boolean isInOrder = false;
+        boolean isSorted = false;
         try {
             List<String> dataList = new ArrayList<>();
             for (WebElement ele : elementList) {
-                dataList.add(ele.getText());
+                dataList.add(ele.getText().toLowerCase());
             }
-            isInOrder = Ordering.natural().isOrdered(dataList);
+            isSorted = Ordering.natural().isOrdered(dataList);
             LOGGER.debug("Actual Order - " + dataList);
             Collections.sort(dataList);
             LOGGER.debug("Expected Order- " + dataList);
         } catch (RuntimeException e) {
             LOGGER.error("isSorted - " + e);
         }
-        return isInOrder;
+        return isSorted;
     }
 
     /**
@@ -77,14 +77,14 @@ public class BasePage {
     }
 
     /**
-     * Check given data in two list are matched
+     * Check given data in two list are matched, without considering the order
      *
      * @param list1
      * @param list2
      * @param <T>
      * @return boolean
      */
-    public <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+    public <T> boolean isListEqualsIgnoreOrder(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
 }

@@ -28,10 +28,10 @@ Feature: Filter and Sort data
     Then check filtered data is correct in "Name" column
     Then check "Number of cases" column is sorted in ascending order
     Examples:
-      | Name     |
-      | A        |
-      | a        |
-      | Phishing |
+      | Name              |
+      | C                 |
+      | c                 |
+      | Man in the Middle |
 
   Scenario Outline: Verify filter by Name and sort by Impact score
     And user select "Impact score" as the Sort option
@@ -39,10 +39,10 @@ Feature: Filter and Sort data
     Then check filtered data is correct in "Name" column
     Then check "Impact score" column is sorted in ascending order
     Examples:
-      | Name     |
-      | A        |
-      | a        |
-      | Phishing |
+      | Name            |
+      | S               |
+      | s               |
+      | Password attack |
 
   Scenario Outline: Verify filter by Name and sort by Complexity
     And user select "Complexity" as the Sort option
@@ -50,10 +50,10 @@ Feature: Filter and Sort data
     Then check filtered data is correct in "Name" column
     Then check "Complexity" column is sorted in ascending order
     Examples:
-      | Name     |
-      | A        |
-      | a        |
-      | Phishing |
+      | Name           |
+      | H              |
+      | h              |
+      | Session hijack |
 
 
   Scenario Outline: Verify filter by Complexity and sort by Name
@@ -100,11 +100,24 @@ Feature: Filter and Sort data
       | MEDIUM     |
       | high       |
 
-  Scenario: Verify sort by Name for all data
+  Scenario: Verify sort by Name for all data in Name column
     And user select "Name" as the Sort option
     Then check "Name" column is sorted in ascending order
 
-  Scenario: Verify sort by Complexity for all data
+  Scenario: Verify sort by Number of cases for all data in Number of cases column
+    And user select "Number of cases" as the Sort option
+    Then check "Number of cases" column is sorted in ascending order
+
+  Scenario: Verify sort by Impact score for all data in Impact score column
+    And user select "Impact score" as the Sort option
+    Then check "Impact score" column is sorted in ascending order
+
+  Scenario: Verify sort by Complexity for all data in Complexity column
     And user select "Complexity" as the Sort option
     Then check "Complexity" column is sorted in ascending order
 
+  Scenario: Verify column header names
+    Then user check column header name is "NAME"
+    Then user check column header name is "NUMBER OF CASES"
+    Then user check column header name is "AVERAGE IMPACT SCORE"
+    Then user check column header name is "COMPLEXITY"

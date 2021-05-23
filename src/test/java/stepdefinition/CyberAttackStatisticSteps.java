@@ -89,4 +89,14 @@ public class CyberAttackStatisticSteps {
             Assert.fail("Filtered data is NOT correct in '" + columnName + "' column");
         }
     }
+
+    @Then("user check column header name is {string}")
+    public void userCheckColumnHeaderNameIs(String expectedColumnHeaderName) {
+        try {
+            Assert.assertTrue(cyberAttackStatisticPage.isColumnHeaderNameCorrect(expectedColumnHeaderName));
+        } catch (AssertionError e) {
+            LOGGER.error("Expected '" + expectedColumnHeaderName + "' column NOT found");
+            Assert.fail("Expected '" + expectedColumnHeaderName + "' column NOT found");
+        }
+    }
 }
