@@ -206,36 +206,26 @@ public class CyberAttackStatisticPage extends BasePage {
     public boolean isColumnSorted(String columnName) {
         boolean isInOrder = false;
         try {
-            boolean isEleClassName = true;
-            String eleClassName = null;
+            List<WebElement> cellElements;
             switch (columnName) {
                 case "Name":
-                    eleClassName = "name";
+                    cellElements = driver.findElements(By.xpath("//div[@class='table-data data-name']"));
+                    isInOrder = isSorted(cellElements);
                     break;
                 case "Number of cases":
-                    eleClassName = "cases";
+                    cellElements = driver.findElements(By.xpath("//div[@class='table-data data-cases']"));
+                    isInOrder = isNumberOfCasesSorted(cellElements);
                     break;
                 case "Impact score":
-                    eleClassName = "averageImpact";
+                    cellElements = driver.findElements(By.xpath("//div[@class='table-data data-averageImpact']"));
+                    isInOrder = isImpactScoreSorted(cellElements);
                     break;
                 case "Complexity":
-                    eleClassName = "complexity";
+                    cellElements = driver.findElements(By.xpath("//div[@class='table-data data-complexity']"));
+                    isInOrder = isComplexitySorted(cellElements);
                     break;
                 default:
-                    isEleClassName = false;
                     LOGGER.error(columnName + " - this column name NOT found");
-            }
-            if (isEleClassName) {
-                if (columnName.equalsIgnoreCase("Number of cases")) {
-                    List<WebElement> cellElements = driver.findElements(By.xpath("//div[@class='table-data data-" + eleClassName + "']"));
-                    isInOrder = isNumberOfCasesSorted(cellElements);
-                } else if (columnName.equalsIgnoreCase("Complexity")) {
-                    List<WebElement> cellElements = driver.findElements(By.xpath("//div[@class='table-data data-" + eleClassName + "']"));
-                    isInOrder = isComplexitySorted(cellElements);
-                } else {
-                    List<WebElement> cellElements = driver.findElements(By.xpath("//div[@class='table-data data-" + eleClassName + "']"));
-                    isInOrder = isSorted(cellElements);
-                }
             }
         } catch (RuntimeException e) {
             LOGGER.error("isColumnSorted - " + e);
@@ -247,7 +237,7 @@ public class CyberAttackStatisticPage extends BasePage {
      * Validate number of cases column data is sorted
      *
      * @param elementList
-     * @return
+     * @return boolean
      */
     public boolean isNumberOfCasesSorted(List<WebElement> elementList) {
         boolean isInOrder = false;
@@ -275,6 +265,29 @@ public class CyberAttackStatisticPage extends BasePage {
             LOGGER.error("isNumberOfCasesSorted - " + e);
         }
         return isInOrder;
+    }
+
+    /**
+     * Validate Impact Score column is Sorted
+     *
+     * @param elementList
+     * @return boolean
+     */
+    public boolean isImpactScoreSorted(List<WebElement> elementList) {
+        boolean isSorted = false;
+        try {
+            List<Double> dataList = new ArrayList<>();
+            for (WebElement ele : elementList) {
+                dataList.add(Double.parseDouble(ele.getText()));
+            }
+            isSorted = Ordering.natural().isOrdered(dataList);
+            LOGGER.debug("Actual Order - " + dataList);
+            Collections.sort(dataList);
+            LOGGER.debug("Expected Order- " + dataList);
+        } catch (RuntimeException e) {
+            LOGGER.error("isImpactScoreSorted - " + e);
+        }
+        return isSorted;
     }
 
     /**
