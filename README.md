@@ -16,9 +16,9 @@ Make sure you have JAVA 8 or above installed to run this test
 
 ### Default properties
     Default.properties file can be found in the root directoy.
-        Make sure you confirgure the webdriver path as for your OS(Windows/Mac).
-        Define the browser type(CHROME/FIREFOX) as for your requirment. One browser can run at a once.
-        Browser mode can be set to headless.
+       - Make sure you confirgure the webdriver path as for your OS(Windows/Mac).
+       - Define the browser type(CHROME/FIREFOX) as for your requirment. Only one browser can run at a once.
+       - Browser mode can be set to headless.
 
 ### Run Test
     To run all the test and generate report in target directory(cucumber-report-html)
