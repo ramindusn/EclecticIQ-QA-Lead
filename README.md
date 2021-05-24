@@ -1,7 +1,5 @@
 # EclecticIQ-QA-Lead
 
-[![Java CI with Maven](https://github.com/executeautomation/SeleniumWithCucucumber/actions/workflows/maven_new.yml/badge.svg?branch=master)](https://github.com/executeautomation/SeleniumWithCucucumber/actions/workflows/maven_new.yml)
-
 ~~~~
 # Important
 Make sure you have JAVA 8 or above installed to run this test
