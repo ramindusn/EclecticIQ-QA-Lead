@@ -29,11 +29,11 @@ Will be created under the **logs** directory
 ### Reports
 
 Overview
-![img.png](img.png)
+![img.png](cucmber_report_overview.png)
 
 Feature view with scenario and steps
-![img_1.png](img_1.png)
+![img_1.png](cucmber_report_scenario_passed.png)
 
 Example fail scenario
-![img_2.png](img_2.png)
+![img_2.png](cucmber_report_scenario_fail.png)
     
