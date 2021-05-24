@@ -30,12 +30,12 @@ Will be created under the **logs** directory
 
 ### Reports
 
-######Overview
+Overview
 ![img.png](img.png)
 
-######Feature view with scenario and steps
+Feature view with scenario and steps
 ![img_1.png](img_1.png)
 
-######Example fail scenario
+Example fail scenario
 ![img_2.png](img_2.png)
     
