@@ -37,7 +37,7 @@ Feature: Filter and Sort data
     And user select "Impact score" as the Sort option
     When user enter a '<Name>' in filter
     Then check filtered data is correct in "Name" column
-    Then check "Impact score" column is sorted in ascending order
+    Then check "Average impact score" column is sorted in ascending order
     Examples:
       | Name            |
       | S               |
@@ -82,7 +82,7 @@ Feature: Filter and Sort data
     And user select "Impact score" as the Sort option
     When user enter a '<Complexity>' in filter
     Then check filtered data is correct in "Complexity" column
-    Then check "Impact score" column is sorted in ascending order
+    Then check "Average impact score" column is sorted in ascending order
     Examples:
       | Complexity |
       | Low        |
@@ -110,7 +110,7 @@ Feature: Filter and Sort data
 
   Scenario: Verify sort by Impact score for all data in Impact score column
     And user select "Impact score" as the Sort option
-    Then check "Impact score" column is sorted in ascending order
+    Then check "Average impact score" column is sorted in ascending order
 
   Scenario: Verify sort by Complexity for all data in Complexity column
     And user select "Complexity" as the Sort option

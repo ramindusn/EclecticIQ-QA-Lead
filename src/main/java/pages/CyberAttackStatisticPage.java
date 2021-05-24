@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import utilities.Column;
 import utilities.DefaultProperties;
 import utilities.Level;
 import utilities.NumberSuffix;
@@ -75,17 +76,18 @@ public class CyberAttackStatisticPage extends BasePage {
         boolean isNameCorrect = false;
         try {
             String actualColumnName = null;
-            switch (expectedColumnHeaderName) {
-                case "NAME":
+            Column column = Column.getColumn(expectedColumnHeaderName);
+            switch (column) {
+                case NAME:
                     actualColumnName = nameColumnHeader.getText();
                     break;
-                case "NUMBER OF CASES":
+                case NUMBER_OF_CASES:
                     actualColumnName = numberOfCasesColumnHeader.getText();
                     break;
-                case "AVERAGE IMPACT SCORE":
+                case AVERAGE_IMPACT_SCORE:
                     actualColumnName = impactScoreColumnHeader.getText();
                     break;
-                case "COMPLEXITY":
+                case COMPLEXITY:
                     actualColumnName = complexityColumnHeader.getText();
                     break;
                 default:
@@ -207,20 +209,21 @@ public class CyberAttackStatisticPage extends BasePage {
         boolean isInOrder = false;
         try {
             List<WebElement> cellElements;
-            switch (columnName) {
-                case "Name":
+            Column column = Column.getColumn(columnName);
+            switch (column) {
+                case NAME:
                     cellElements = driver.findElements(By.xpath("//div[@class='table-data data-name']"));
                     isInOrder = isSorted(cellElements);
                     break;
-                case "Number of cases":
+                case NUMBER_OF_CASES:
                     cellElements = driver.findElements(By.xpath("//div[@class='table-data data-cases']"));
                     isInOrder = isNumberOfCasesSorted(cellElements);
                     break;
-                case "Impact score":
+                case AVERAGE_IMPACT_SCORE:
                     cellElements = driver.findElements(By.xpath("//div[@class='table-data data-averageImpact']"));
                     isInOrder = isImpactScoreSorted(cellElements);
                     break;
-                case "Complexity":
+                case COMPLEXITY:
                     cellElements = driver.findElements(By.xpath("//div[@class='table-data data-complexity']"));
                     isInOrder = isComplexitySorted(cellElements);
                     break;
@@ -246,12 +249,13 @@ public class CyberAttackStatisticPage extends BasePage {
             for (WebElement ele : elementList) {
                 StringBuilder stringBuilder = new StringBuilder(ele.getText());
                 double number = 0.0;
-                if (ele.getText().contains("k")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.K.getValue();
-                } else if (ele.getText().contains("M")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.M.getValue();
-                } else if (ele.getText().contains("B")) {
-                    number = Double.parseDouble(stringBuilder.deleteCharAt(ele.getText().length() - 1).toString()) * NumberSuffix.B.getValue();
+                String text= ele.getText().toUpperCase();
+                if (text.contains(NumberSuffix.K.name())) {
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.K.getValue();
+                } else if (text.contains(NumberSuffix.M.name())) {
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.M.getValue();
+                } else if (text.contains(NumberSuffix.B.name())) {
+                    number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.B.getValue();
                 } else {
                     number = Double.parseDouble(ele.getText());
                 }
