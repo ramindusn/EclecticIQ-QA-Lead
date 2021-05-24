@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class DriverFactory {
         prefs.put("safebrowsing.enabled", "true");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("prefs", prefs);
+        chromeOptions.setHeadless(Boolean.parseBoolean(DefaultProperties.readProperty("headlessMode")));
         chromeOptions.addArguments("--ignore-certificate-errors");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-infobars");
@@ -59,7 +61,9 @@ public class DriverFactory {
         System.setProperty("webdriver.gecko.driver", DefaultProperties.readProperty("geckodriverPath"));
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setAcceptUntrustedCertificates(true);
-        return new FirefoxDriver();
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setHeadless(Boolean.parseBoolean(DefaultProperties.readProperty("headlessMode")));
+        return new FirefoxDriver(firefoxOptions);
     }
 
     /**
