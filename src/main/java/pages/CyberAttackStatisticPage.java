@@ -69,7 +69,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate given column header name is correct
      *
-     * @param expectedColumnHeaderName
+     * @param expectedColumnHeaderName Expected column header Name
      * @return boolean
      */
     public boolean isColumnHeaderNameCorrect(String expectedColumnHeaderName) {
@@ -107,7 +107,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Type search text in the filter data
      *
-     * @param searchText
+     * @param searchText Entered search text
      * @return boolean
      */
     public boolean isSetFilter(String searchText) {
@@ -124,7 +124,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate default value is correct in Sort dropdown list
      *
-     * @param expectedName
+     * @param expectedName Expected default sort option
      * @return boolean
      */
     public boolean isDefaultValueCorrectInSortDDL(String expectedName) {
@@ -143,7 +143,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate sort options available in sort drop down list
      *
-     * @param expectedList
+     * @param expectedList Expected all sort option list
      * @return boolean
      */
     public boolean isSortOptionsAvailableInSortDDL(List<String> expectedList) {
@@ -166,7 +166,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Select a sort option from drop down
      *
-     * @param chooseOption
+     * @param chooseOption Selected sort option
      * @return boolean
      */
     public boolean isSelectSortOptionFromSortDDL(String chooseOption) {
@@ -184,7 +184,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate filtered data is correct
      *
-     * @param columnName
+     * @param columnName Filter applied column name
      * @return boolean
      */
     public boolean isFilteredDataCorrect(String columnName) {
@@ -202,7 +202,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate given column data is sorted
      *
-     * @param columnName
+     * @param columnName Sorted column name
      * @return boolean
      */
     public boolean isColumnSorted(String columnName) {
@@ -239,7 +239,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate number of cases column data is sorted
      *
-     * @param elementList
+     * @param elementList Actual list of Number of cases display in the column
      * @return boolean
      */
     public boolean isNumberOfCasesSorted(List<WebElement> elementList) {
@@ -248,17 +248,16 @@ public class CyberAttackStatisticPage extends BasePage {
             List<Double> dataList = new ArrayList<>();
             for (WebElement ele : elementList) {
                 StringBuilder stringBuilder = new StringBuilder(ele.getText());
-                double number = 0.0;
-                String text= ele.getText().toUpperCase();
-                if (text.contains(NumberSuffix.K.name())) {
+                double number;
+                String text = ele.getText().toUpperCase();
+                if (text.contains(NumberSuffix.K.name()))
                     number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.K.getValue();
-                } else if (text.contains(NumberSuffix.M.name())) {
+                else if (text.contains(NumberSuffix.M.name()))
                     number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.M.getValue();
-                } else if (text.contains(NumberSuffix.B.name())) {
+                else if (text.contains(NumberSuffix.B.name()))
                     number = Double.parseDouble(stringBuilder.deleteCharAt(text.length() - 1).toString()) * NumberSuffix.B.getValue();
-                } else {
+                else
                     number = Double.parseDouble(ele.getText());
-                }
                 dataList.add(number);
             }
             isInOrder = Ordering.natural().isOrdered(dataList);
@@ -274,7 +273,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate Impact Score column is Sorted
      *
-     * @param elementList
+     * @param elementList Actual list of Impact Scores display in the column
      * @return boolean
      */
     public boolean isImpactScoreSorted(List<WebElement> elementList) {
@@ -297,7 +296,7 @@ public class CyberAttackStatisticPage extends BasePage {
     /**
      * Validate complexity column data is sorted
      *
-     * @param elementList
+     * @param elementList Actual list of Complexities display in the column
      * @return boolean
      */
     public boolean isComplexitySorted(List<WebElement> elementList) {
