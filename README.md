@@ -28,19 +28,27 @@ Make sure you have JAVA 8 or above installed to run this test
 
 ### Logs
 
-Will be created under the **logs** directory
+Will be created under the **logs** directory in root 
+
+Sample console log
+
+![img.png](reportsandlogscreenshots/consolelog.png)
+
+Sample log file with class info.
+
+![img_1.png](reportsandlogscreenshots/logfile.png)
 
 ### Reports
 
 Overview
 
-![img.png](reportscreenshots/cucmber_report_overview.png)
+![img.png](reportsandlogscreenshots/cucmber_report_overview.png)
 
 Feature view with scenario and steps
 
-![img_1.png](reportscreenshots/cucmber_report_scenario_passed.png)
+![img_1.png](reportsandlogscreenshots/cucmber_report_scenario_passed.png)
 
 Example fail scenario
 
-![img_2.png](reportscreenshots/cucmber_report_scenario_fail.png)
+![img_2.png](reportsandlogscreenshots/cucmber_report_scenario_fail.png)
     
