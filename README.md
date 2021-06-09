@@ -1,4 +1,4 @@
-# EclecticIQ-QA-Lead
+# Selenium-UI-Java-Cucumber
 
 ~~~~
 # Important
