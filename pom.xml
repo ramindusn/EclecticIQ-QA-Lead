@@ -79,7 +79,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>EclecticIQ_Report</projectName>
+                            <projectName>Selenium-UI-Java-Cucumber</projectName>
                             <outputDirectory>${project.build.directory}/cucumber-report-html</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
                             <checkBuildResult>false</checkBuildResult>
